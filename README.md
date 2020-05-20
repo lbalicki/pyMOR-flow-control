@@ -12,7 +12,7 @@ Helper functions used for the simulation and storing of results are taken from
 Model order reduction is performed using [pyMOR](https://github.com/pymor/pymor).
 
 The repository contains [results](./data/lvl_2/re_110) for the simulation without
-control as well as [results](./data/lvl_2_bc/re_110) with boundary control.
+control as well as [results](./data/lvl_2_bc/re_110_palpha_0.001) with boundary control.
 Run `paraview v_results.pvd` or `paraview p_results.pvd` in the respective folder
 in order to view the results for the velocity or pressure, respectively.
 
