@@ -1,0 +1,4 @@
+Python Version 3.5+
+Parview Version 4.4.0+ (Recommended: Version 4.4.0)
+Jupyter Version 1.0.0
+virtualenvwrapper Version 5.0.1.dev2

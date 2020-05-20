@@ -35,14 +35,15 @@ def solve_steadystate_nse(mats, Re, control, tol=1e-10, npicardstps=5, maxit=30,
     J = mats['J']
     hmat = mats['H']
     fp = mats['fp'] + mats['fp_div']
-    if control == 'dist':
-        A = 1. / Re * mats['A'] + mats['L1'] + mats['L2']
-        fv = mats['fv'] + 1./Re*mats['fv_diff'] + mats['fv_conv']
-    else:
+
+    if control == 'bc':
         A = 1./Re*mats['A'] + mats['L1'] + mats['L2'] + 1./palpha*mats['Arob']
         Brob = mats['Brob']
         fv = mats['fv'] + 1./Re*mats['fv_diff'] + mats['fv_conv'] \
                         + 1. / palpha*np.dot(Brob, uvec)
+    else:
+        A = 1. / Re * mats['A'] + mats['L1'] + mats['L2']
+        fv = mats['fv'] + 1./Re*mats['fv_diff'] + mats['fv_conv']
 
     updnorm = 1
     NV, NP = fv.shape[0], fp.shape[0]
@@ -158,3 +159,34 @@ def eva_quadterm(H, v):
         hviv = H[:, k*NV:(k+1)*NV]*(vi[0]*v)
         hvv = hvv + hviv
     return np.array(hvv)
+
+
+def imaginary_to_csv(filename, ews):
+    with open(filename, 'w+') as f:
+        f.write("real,imag\n")
+        for ew in ews:
+            f.write(f"{np.real(ew)},{np.imag(ew)}\n")
+    f.closed
+
+
+def generate_spectrum_csv(reynolds_numers, mats, control, conv_mat, palpha):
+    for rey in reynolds_numers:
+        M = mats['M']
+        J = mats['J']
+        if control == 'dist':
+            Amat = -1./rey * mats['A'] - conv_mat
+        elif control == 'bc':
+            Amat = -1./rey * mats['A'] - 1./palpha*mats['Arob'] - conv_mat
+
+        Eb = sps.bmat([
+            [M, sps.csc_matrix(J.T.shape)],
+            [sps.csc_matrix(J.shape), None]
+        ])
+        Ab = sps.bmat([
+            [Amat, J.T],
+            [J, None]
+        ])
+
+        ews, evs = spsla.eigs(Ab, k=50, M=Eb, sigma=0)
+
+        imaginary_to_csv("Spectrum_Re_" + str(rey), ews)
