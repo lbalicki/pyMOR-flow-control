@@ -29,6 +29,8 @@ pip install -e .[full]
 ```
 This will also install other required packages such as jupyter, numpy, etc.
 
+Next install Slycot via `pip install slycot==0.3.5`.
+
 For visualization install [Paraview](https://www.paraview.org/) e.g. via `sudo apt install paraview`.
 Or download the recommended version 4.4.0 from [here](https://www.paraview.org/download/) and install from source accordingly.
 

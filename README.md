@@ -16,6 +16,10 @@ control as well as [results](./data/lvl_2_bc/re_110) with boundary control.
 Run `paraview v_results.pvd` or `paraview p_results.pvd` in the respective folder
 in order to view the results for the velocity or pressure, respectively.
 
+Additionally, the [experiments directory](./experiments) contains scripts and
+results for numerical experiments. Run `make` or `python run_experiments.py` in
+the directory in order to compute the results.
+
 ## Installation
 Install instructions are available [here](./INSTALL.md).
 
