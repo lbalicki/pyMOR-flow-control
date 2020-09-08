@@ -19,7 +19,7 @@ Create a virtual environment based on Python 3, e.g. by running
 mkvirtualenv --python=/usr/bin/python3 pyMOR_flow_control
 ```
 
-Install the pyMOR submodule (which is [this](https://github.com/lbalicki/pymor/tree/StokesDescriptorModel) forked pyMOR repository).
+Install the pyMOR submodule (which is [this](https://github.com/lbalicki/pymor/tree/masterthesis) forked pyMOR repository).
 E.g. run:
 ```
 git submodule init
